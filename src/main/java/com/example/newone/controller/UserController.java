@@ -5,16 +5,9 @@ import com.example.newone.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @RestController
 public class UserController {
@@ -26,6 +19,7 @@ public class UserController {
     {
             return  userServices.ListAll();
     }
+
     @GetMapping("/user/{id}")
     public ResponseEntity<User> get(@PathVariable int id) {
         try {
@@ -37,6 +31,30 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/getemail/{email}")
+    public ResponseEntity<User> getByEmail(@PathVariable String email) {
+        try {
+            User user = userServices.getByEmail(email);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        }
+        catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/user/getIdbyEmail/{email}")
+    public ResponseEntity<Integer> getIdByEmail(@PathVariable String email) {
+        try {
+            User user = userServices.getByEmail(email);
+
+            return new ResponseEntity<Integer>(user.getId(), HttpStatus.OK);
+        }
+        catch (NoSuchElementException e) {
+            return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @PostMapping("/user")
     public void add(@RequestBody User user) {
         userServices.save(user);
@@ -45,12 +63,11 @@ public class UserController {
     public void delete(@PathVariable Integer id) {
         userServices.delete(id);
     }
-    @PutMapping("/user/{id}")
+    @PutMapping("/user/updateAll/{id}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id) {
         try {
             user.setId(id);
             userServices.save(user);
-           // User existProduct = userServices.get(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -75,6 +92,20 @@ public class UserController {
         try {
           User user= userServices.get(id);
           user.setPassword(pass);
+            userServices.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+ @PutMapping("/user/updateEmail/{id}/{pass}")
+    public ResponseEntity<?> updateEmail( @PathVariable Integer id,@ PathVariable String email)
+    {
+        try {
+          User user= userServices.get(id);
+          user.setPassword(email);
             userServices.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {

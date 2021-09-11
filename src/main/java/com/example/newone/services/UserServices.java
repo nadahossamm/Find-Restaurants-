@@ -29,7 +29,9 @@ public class UserServices {
     {
         userRepository.deleteById(id);
     }
-
-
+    public  User getByEmail(String email)
+    {
+        return userRepository.getByEmail(email);
+    }
 
 }
