@@ -41,7 +41,10 @@ public class UserController {
     public void add(@RequestBody User user) {
         userServices.save(user);
     }
-
+    @DeleteMapping("/user/{id}")
+    public void delete(@PathVariable Integer id) {
+        userServices.delete(id);
+    }
     @PutMapping("/user/{id}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id) {
         try {
@@ -53,9 +56,30 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable Integer id) {
-        userServices.delete(id);
+    @PutMapping("/user/updateName/{id}/{name}")
+    public ResponseEntity<?> updateUsername( @PathVariable Integer id,@ PathVariable String name)
+    {
+        try {
+          User user= userServices.get(id);
+          user.setUsername(name);
+            userServices.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+ @PutMapping("/user/updatePass/{id}/{pass}")
+    public ResponseEntity<?> updatePassword( @PathVariable Integer id,@ PathVariable String pass)
+    {
+        try {
+          User user= userServices.get(id);
+          user.setPassword(pass);
+            userServices.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
