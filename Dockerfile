@@ -1,3 +1,3 @@
 FROM openjdk:8-alpine
-ADD target/users-mysql.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+ADD target/users-mysql.jar users-mysql.jar
+ENTRYPOINT ["java","-jar","users-mysql.jar"]
