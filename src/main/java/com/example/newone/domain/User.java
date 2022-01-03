@@ -14,16 +14,16 @@ public class User {
             sequenceName = "user_sequence"
     )*/
     private int id;
-    private String username;
+    private String name;
     private String password;
     private String email;
 
     public User() {
     }
 
-    public User(int id, String username, String password, String email) {
+    public User(int id, String name, String password, String email) {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.email = email;
     }
@@ -36,12 +36,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getname() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

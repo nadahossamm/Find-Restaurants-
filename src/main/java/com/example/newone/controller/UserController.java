@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserServices  userServices;
 
-    @GetMapping("/user")
+    @GetMapping("/users/")
     List<User> list()
     {
             return  userServices.ListAll();
@@ -31,7 +31,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/getemail/{email}")
+    @GetMapping("/user/{email}/")
     public ResponseEntity<User> getByEmail(@PathVariable String email) {
         try {
             User user = userServices.getByEmail(email);
@@ -55,7 +55,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/user")
+    @PostMapping("/user/")
     public void add(@RequestBody User user) {
         userServices.save(user);
     }
@@ -63,7 +63,7 @@ public class UserController {
     public void delete(@PathVariable Integer id) {
         userServices.delete(id);
     }
-    @PutMapping("/user/updateAll/{id}")
+    @PutMapping("/user/{id}/")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Integer id) {
         try {
             user.setId(id);
@@ -78,7 +78,7 @@ public class UserController {
     {
         try {
           User user= userServices.get(id);
-          user.setUsername(name);
+          user.setname(name);
             userServices.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
