@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     private UserServices  userServices;
 
-    @GetMapping("/users/")
+    @GetMapping("/user/")
     List<User> list()
     {
             return  userServices.ListAll();

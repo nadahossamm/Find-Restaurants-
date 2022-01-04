@@ -6,19 +6,18 @@ services:
     restart: always
     build: .
     ports:
-      - 8000-8999:8080
+      - 8080:8080
     environment:
-      MYSQL_HOST: mysqldb3
+      MYSQL_HOST: mysqldb
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-      MYSQL_PORT: 3307
+      MYSQL_PORT: 3306
   mysqldb:
     container_name: mysqldb
     image: mysql
-    volumes:
-      -  C:\Users\Rewan ElAttar\Desktop:/var/lib/mysql
     ports:
-      - 3307:3307
+      - 3307:3306
     environment:
       MYSQL_DATABASE: test
       MYSQL_ROOT_PASSWORD: root
+
